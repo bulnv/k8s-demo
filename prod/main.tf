@@ -22,3 +22,17 @@ terraform {
     prefix = "terraform/state/prod"
   }
 }
+
+provider "helm" {}
+
+
+resource "helm_release" "local" {
+  name       = "sock-shop"
+  chart      = "../helm-chart"
+  create_namespace = true
+  values = [
+    "${file("chart-values.yaml")}"
+  ]
+  force_update = true
+  recreate_pods  = true
+}

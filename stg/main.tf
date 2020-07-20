@@ -11,7 +11,8 @@ module "k8s-stg" {
   k8s_pool_location = local.zone
   k8s_location      = local.zone
   env               = "stg"
-  pool_nodes_count  = 1
+  pool_nodes_count  = 2
+  k8s_node_type     = "n1-standard-2"
 }
 
 provider "google" {
@@ -26,4 +27,18 @@ terraform {
     bucket = "nvbulashev-gke-stg-remote-states"
     prefix = "terraform/state/stg"
   }
+}
+
+provider "helm" {}
+
+
+resource "helm_release" "local" {
+  name             = "sock-shop"
+  chart            = "../helm-chart"
+  create_namespace = true
+  values = [
+    "${file("chart-values.yaml")}"
+  ]
+  force_update  = true
+  recreate_pods = true
 }

@@ -1,0 +1,5 @@
+frontend:
+  wildcard: '*.np.nbulashev.playpit.net'
+loadtest:
+  replicas: 1
+  enabled: true

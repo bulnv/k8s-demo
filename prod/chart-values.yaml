@@ -1,0 +1,9 @@
+---
+
+frontend:
+  wildcard: '*.nbulashev.playpit.net'
+zipkin: 
+  enabled:  true
+  url: zipkin.nbulashev.playpit.net
+frontend:
+  replicas: 2

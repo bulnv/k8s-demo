@@ -21,7 +21,7 @@ resource "google_container_node_pool" "primary_nodes" {
 
   node_config {
     preemptible  = true
-    machine_type = "n1-standard-1"
+    machine_type = var.k8s_node_type
 
     metadata = {
       disable-legacy-endpoints = "true"

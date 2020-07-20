@@ -38,6 +38,11 @@ variable "k8s_admin_password" {
   default = "MMBxR6uREjBJviJy"
 }
 
+variable "k8s_node_type" {
+  type    = string
+  default = "n1-standard-1"
+}
+
 variable "env" {
   type    = string
   default = "prod"
