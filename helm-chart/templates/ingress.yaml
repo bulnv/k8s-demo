@@ -6,8 +6,7 @@ metadata:
     kubernetes.io/ingress.class: nginx
 spec:
   rules:
-  - host: '{{ .Values.frontend.wildcard }}'
-    http:
+  - http:
       paths:
       - path: /
         backend:

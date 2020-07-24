@@ -3,17 +3,17 @@ locals {
   zone   = "europe-north1-b"
 }
 module "k8s-stg" {
-  source = "../modules/k8s"
+  source              = "../modules/k8s"
   autoscaling_enabled = true
-  min_node_count = 1 
-  max_node_count = 2
+  min_node_count      = 1
+  max_node_count      = 2
 }
 
 provider "google" {
   project     = "mineral-silicon-271819"
   region      = local.region
   zone        = local.zone
-  credentials = "${file("/home/bulashev/.config/gcloud/mineral.json")}"
+  credentials = file("/home/bulashev/.config/gcloud/mineral.json")
 }
 
 terraform {
@@ -27,12 +27,23 @@ provider "helm" {}
 
 
 resource "helm_release" "local" {
-  name       = "sock-shop"
-  chart      = "../helm-chart"
+  name             = "sock-shop"
+  chart            = "../helm-chart"
   create_namespace = true
   values = [
     "${file("chart-values.yaml")}"
   ]
-  force_update = true
-  recreate_pods  = true
+  force_update  = true
+  recreate_pods = true
+}
+
+resource "helm_release" "kubemonkey" {
+  name             = "kubemonkey"
+  chart            = "../kubemonkey"
+  create_namespace = true
+  values = [
+    "${file("../kubemonkey/values.yaml")}"
+  ]
+  force_update  = true
+  recreate_pods = true
 }

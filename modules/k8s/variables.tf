@@ -43,6 +43,11 @@ variable "k8s_node_type" {
   default = "n1-standard-1"
 }
 
+variable "k8s_file_path" {
+  type    = string
+  default = "./kubeconfig"
+}
+
 variable "env" {
   type    = string
   default = "prod"
