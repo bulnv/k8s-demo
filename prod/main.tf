@@ -1,12 +1,16 @@
 locals {
   region = "europe-north1"
   zone   = "europe-north1-b"
+  kubeconfig_file_path = "kubeconfig"
 }
-module "k8s-stg" {
+
+module "k8s" {
   source              = "../modules/k8s"
   autoscaling_enabled = true
   min_node_count      = 1
   max_node_count      = 2
+  release_values_file = file("chart-values.yaml")
+  release_create_monkey = true
 }
 
 provider "google" {
@@ -21,29 +25,4 @@ terraform {
     bucket = "nvbulashev-gke-prod-remote-states"
     prefix = "terraform/state/prod"
   }
-}
-
-provider "helm" {}
-
-
-resource "helm_release" "local" {
-  name             = "sock-shop"
-  chart            = "../helm-chart"
-  create_namespace = true
-  values = [
-    "${file("chart-values.yaml")}"
-  ]
-  force_update  = true
-  recreate_pods = true
-}
-
-resource "helm_release" "kubemonkey" {
-  name             = "kubemonkey"
-  chart            = "../kubemonkey"
-  create_namespace = true
-  values = [
-    "${file("../kubemonkey/values.yaml")}"
-  ]
-  force_update  = true
-  recreate_pods = true
 }

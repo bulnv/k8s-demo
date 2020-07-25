@@ -43,14 +43,24 @@ variable "k8s_node_type" {
   default = "n1-standard-1"
 }
 
-variable "k8s_file_path" {
-  type    = string
-  default = "./kubeconfig"
-}
-
 variable "env" {
   type    = string
   default = "prod"
+}
+
+variable "release_values_file" {
+  type    = string
+  default = "chart-values.yaml"
+}
+
+variable "release_create_monkey" {
+  type    = bool
+  default = false
+}
+
+variable "release_create_local" {
+  type    = bool
+  default = true
 }
 
 variable "pool_nodes_count" {
