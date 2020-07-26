@@ -5,12 +5,22 @@ metadata:
   name: catalogue
   labels:
     name: catalogue
+    kube-monkey/enabled: enabled
+    kube-monkey/identifier: monkey-victim
+    kube-monkey/mtbf: '2'
+    kube-monkey/kill-mode: "fixed"
+    kube-monkey/kill-value: '1'
 spec:
   replicas: 1
   template:
     metadata:
       labels:
         name: catalogue
+        kube-monkey/enabled: enabled
+        kube-monkey/identifier: monkey-victim
+        kube-monkey/mtbf: '2'
+        kube-monkey/kill-mode: "fixed"
+        kube-monkey/kill-value: '1'
     spec:
       containers:
       - name: catalogue

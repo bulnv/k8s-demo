@@ -129,6 +129,7 @@ resource "helm_release" "kubemonkey" {
     "${file(format("%s/charts/kubemonkey/values.yaml", path.module))}"
   ]
   force_update  = true
+  namespace     = "kube-system"
   recreate_pods = true
   depends_on    = [google_container_node_pool.primary_nodes]
 }

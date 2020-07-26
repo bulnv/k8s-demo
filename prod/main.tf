@@ -11,6 +11,7 @@ module "k8s" {
   max_node_count      = 2
   release_values_file = file("chart-values.yaml")
   release_create_monkey = true
+  k8s_node_type     = "n1-standard-2"
 }
 
 provider "google" {
